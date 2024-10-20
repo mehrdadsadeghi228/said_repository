@@ -5,16 +5,18 @@ const path = require('path');
 const pdf = require('html-pdf');
 
 const app = express();
-const PORT = 3000;
+const PORT = 4088;
 
 // Set EJS as the template engine
 app.set('view engine', 'ejs');
 
 // Middleware for serving static files
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'views')));
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Routes
+
 app.get('/', (req, res) => {
     res.render('index');
 });

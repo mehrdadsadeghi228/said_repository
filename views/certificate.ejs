@@ -4,39 +4,50 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Certificate</title>
-    <link rel="stylesheet" href="/css/styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin: 50px;
+        .hologram {
+            width: 150px;
+            height: 150px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(0, 255, 255, 0.6), rgba(255, 0, 255, 0.6), rgba(255, 255, 255, 0.1));
+            border-radius: 50%;
+            position: absolute;
+            bottom: 20px;
+            right: 30px;
+            background-size: 200% 200%;
+            animation: hologram-glow 4s infinite;
         }
-        .certificate {
-            border: 5px solid black;
-            padding: 30px;
-            max-width: 700px;
-            margin: 0 auto;
-        }
-        h1 {
-            font-size: 40px;
-        }
-        h2, h3 {
-            font-size: 30px;
-        }
-        p {
-            font-size: 20px;
+
+        @keyframes hologram-glow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
     </style>
 </head>
-<body>
-    <div class="certificate">
-        <h1>Certificate of Completion</h1>
-        <p>This is to certify that</p>
-        <h2><%= name %></h2>
-        <p>has successfully completed the</p>
-        <h3><%= course %></h3>
-        <p>Date: <%= date %></p>
-        <p>Congratulations!</p>
+<body class="bg-gray-100">
+    <div class="container mx-auto py-12">
+        <div class="bg-white border-4 border-indigo-500 shadow-lg rounded-lg p-12 relative">
+            <h1 class="text-5xl font-bold text-center text-gray-800">Certificate of Completion</h1>
+            <p class="text-center text-xl mt-6">This is to certify that</p>
+            <h2 class="text-3xl font-semibold text-center text-blue-500 mt-2"><%= name %></h2>
+            <p class="text-center text-xl mt-6">has successfully completed</p>
+            <h3 class="text-2xl font-semibold text-center text-purple-600 mt-2"><%= course %></h3>
+            <p class="text-center text-lg mt-6">Date: <%= date %></p>
+
+            <div class="border-t-2 border-gray-300 mt-10"></div>
+            
+            <!-- Signature and Hologram -->
+            <div class="flex justify-between items-center mt-6">
+                <p class="text-xl font-semibold text-left">Date: <%= date %></p>
+                <div class="text-right">
+                    <p class="text-xl font-semibold">Signed by</p>
+                    <img src="/img/signature.png" alt="Signature" class="w-32">
+                </div>
+            </div>
+            <!-- Hologram -->
+            <div class="hologram"></div>
+        </div>
     </div>
 </body>
 </html>
