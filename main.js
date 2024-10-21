@@ -6,7 +6,8 @@ const pdf = require('html-pdf');
 const { router } = require('./src/module/routes');
 const SwaggerConfig = require('./src/config/swagger.config');
 require("dotenv").config();
-
+const cors=require("cors");
+const morgan = require('morgan');
 const app = express();
 const PORT = 4088;
 
@@ -19,9 +20,13 @@ SwaggerConfig(app);
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'views')));
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(router)
+app.use(morgan("dev"));
+app.use(express.json());
+
 require('./src/config/mongoose.config');
+app.use(cors());
 // Routes
+app.use(router);
 
 app.get('/', (req, res) => {
     res.render('index');

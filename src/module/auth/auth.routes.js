@@ -7,11 +7,10 @@ const { validateAuthRegisterschema,validateAuthLoginschema } = require('./authva
 AuthRoutes.post('/register', authController.register);
 
 // Login route
-AuthRoutes.post('/login',  authController.login);
+AuthRoutes.post('/login', validateAuthLoginschema, authController.login);
 
 // Logout route
 //AuthRoutes.post('/logout', authController.logout);
-
 
 // Refresh token route
 //AuthRoutes.post('/refresh-token', authController.refreshToken);

@@ -5,19 +5,31 @@ const config = require('../../config/configJWT.js');
 const validateAuthschema = require('./authvalidate');
 var winston = require('winston');
 const User = require('./auth.model.js');
+const { validationResult } = require('express-validator');
+const logger = require('../../utills/log/winston.config.js');
+const autoBind = require("auto-bind");
 
 
 class AuthController {
-  async register(req, res) {
+  constructor(){
+    autoBind(this);
+  }
+  async register(req, res,next) {
     try {
-        const { error } = validateAuthschema.validateAuthRegisterschema.validate(req.body);
-        if (error) {
-            winston.log('error', "error for faild in validateAuthRegisterschema \'"+error+"\'");
-
-            return res.status(400).json({ error: error.details[0].message });
-          }
+      
+        const errorValidator = validationResult(req);
+        if (!errorValidator) {
+            console.log("here");
+            logger.log('error', "error for faild in validateAuthRegisterschema \'"+error+"\'");
+            return res.status(HttpStatusCode.NotImplemented).json({
+                statusCodes: HttpStatusCode.NotImplemented,
+                message: errorValidator
+            });   
+        }
+        console.log(req.body);
+        
       const { username, email, password } = req.body;
-
+        console.log(username, email, password)
       // Check if user already exists
       const existingUser = await User.findOne({ email });
       if (existingUser) {
@@ -25,8 +37,8 @@ class AuthController {
       }
 
       // Hash password
-      const salt = await bcrypt.genSalt(10);
-      const hashedPassword = await bcrypt.hash(password, salt);
+      const salt =  bcrypt.genSaltSync(10);
+      const hashedPassword =  bcrypt.hashSync(password, salt);
 
       // Create new user
       const newUser = new User({
@@ -45,10 +57,14 @@ class AuthController {
 
   async login(req, res) {
     try {
-        const { error } = validateAuthschema.validateAuthRegisterschema.validate(req.body);
-        if (error) {
-            return res.status(400).json({ error: error.details[0].message });
-          }
+        const errorValidator = validationResult(req);
+        if (!errorValidator) {
+            winston.log('error', "error for faild in validateAuthRegisterschema \'"+error+"\'");
+            return res.status(HttpStatusCode.NotImplemented).json({
+                statusCodes: HttpStatusCode.NotImplemented,
+                message: errorValidator
+            });   
+        }
       const { email, password } = req.body;
 
       // Check if user exists
