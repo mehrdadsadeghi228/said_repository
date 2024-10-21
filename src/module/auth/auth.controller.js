@@ -81,6 +81,8 @@ class AuthController {
 
       // Generate JWT token
       const token = jwt.sign({ userId: user._id }, { expiresIn: '1h' });
+      const userSeasion=token+` userId:${id}`.user._id
+      req.session.user=userSeasion
       res.json({ token, userId: user._id });
     } catch (error) {
       res.status(500).json({ message: 'Server error', error: error.message });

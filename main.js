@@ -10,6 +10,8 @@ const cors=require("cors");
 const morgan = require('morgan');
 const app = express();
 const PORT = 4088;
+const sessions = require('express-session');
+const cookieParser = require('cookie-parser');
 
 // Set EJS as the template engine
 app.set('view engine', 'ejs');
@@ -17,20 +19,31 @@ app.set('view engine', 'ejs');
 // Middleware for serving static files
 SwaggerConfig(app);
 
+
+
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'views')));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(morgan("dev"));
 app.use(express.json());
-
+app.use(sessions({
+    secret:process.env.SECRESTKEYFORSEASION,
+    saveUninitialized:true,
+    cookie: { maxAge: process.env.ONEDAY },
+    resave: false
+    }));
 require('./src/config/mongoose.config');
 app.use(cors());
 // Routes
+
+app.use(cookieParser());
 app.use(router);
+
 
 app.get('/', (req, res) => {
     res.render('index');
 });
+
 
 app.post('/generate', (req, res) => {
     const { name, course, date } = req.body;
