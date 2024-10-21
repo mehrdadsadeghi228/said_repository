@@ -3,6 +3,9 @@ const bodyParser = require('body-parser');
 const ejs = require('ejs');
 const path = require('path');
 const pdf = require('html-pdf');
+const { router } = require('./src/module/routes');
+const SwaggerConfig = require('./src/config/swagger.config');
+require("dotenv").config();
 
 const app = express();
 const PORT = 4088;
@@ -11,10 +14,13 @@ const PORT = 4088;
 app.set('view engine', 'ejs');
 
 // Middleware for serving static files
+SwaggerConfig(app);
+
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'views')));
 app.use(bodyParser.urlencoded({ extended: true }));
-
+app.use(router)
+require('./src/config/mongoose.config');
 // Routes
 
 app.get('/', (req, res) => {

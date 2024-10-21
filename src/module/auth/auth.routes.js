@@ -1,27 +1,27 @@
 const express = require('express');
-const router = express.Router();
+const AuthRoutes = express.Router();
 const authController = require('./auth.controller');
-const { validateRegistration, validateLogin } = require('./auth.validator');
+const { validateAuthRegisterschema,validateAuthLoginschema } = require('./authvalidate');
 
 // Registration route
-router.post('/register', validateRegistration, authController.register);
+AuthRoutes.post('/register', authController.register);
 
 // Login route
-router.post('/login', validateLogin, authController.login);
+AuthRoutes.post('/login',  authController.login);
 
 // Logout route
-router.post('/logout', authController.logout);
+//AuthRoutes.post('/logout', authController.logout);
 
 
 // Refresh token route
-router.post('/refresh-token', authController.refreshToken);
+//AuthRoutes.post('/refresh-token', authController.refreshToken);
 
 // Forgot password route
-router.post('/forgot-password', authController.forgotPassword);
+AuthRoutes.post('/forgot-password', authController.forgotPassword);
 
 // Reset password route
-router.post('/reset-password', authController.resetPassword);
+AuthRoutes.post('/reset-password', authController.resetPassword);
 
 module.exports = {
-    AuthRoutes: router
+    AuthRoutes
 };

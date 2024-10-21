@@ -1,10 +1,10 @@
 
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const User = require('../user/user.model');
 const config = require('../../config/configJWT.js');
 const validateAuthschema = require('./authvalidate');
 var winston = require('winston');
+const User = require('./auth.model.js');
 
 
 class AuthController {
@@ -64,8 +64,7 @@ class AuthController {
       }
 
       // Generate JWT token
-      const token = jwt.sign({ userId: user._id }, config.jwtSecret, { expiresIn: '1h' });
-
+      const token = jwt.sign({ userId: user._id }, { expiresIn: '1h' });
       res.json({ token, userId: user._id });
     } catch (error) {
       res.status(500).json({ message: 'Server error', error: error.message });
