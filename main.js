@@ -5,22 +5,26 @@ const path = require('path');
 const pdf = require('html-pdf');
 const { router } = require('./src/module/routes');
 const SwaggerConfig = require('./src/config/swagger.config');
-require("dotenv").config();
 const cors=require("cors");
 const morgan = require('morgan');
-const app = express();
-const PORT = 4088;
 const sessions = require('express-session');
 const cookieParser = require('cookie-parser');
+const { log } = require('console');
 
+
+require("dotenv").config();
+
+
+const app = express();
+const PORT = process.env.PORT || 3000;
+const ip=process.env.IP|| '127.0.2.1';
 // Set EJS as the template engine
 app.set('view engine', 'ejs');
 
 // Middleware for serving static files
 SwaggerConfig(app);
 
-
-
+log(typeof(process.env.ONEDAY))
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'views')));
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -29,7 +33,7 @@ app.use(express.json());
 app.use(sessions({
     secret:process.env.SECRESTKEYFORSEASION,
     saveUninitialized:true,
-    cookie: { maxAge: process.env.ONEDAY },
+    cookie: { maxAge:Number( process.env.ONEDAY) },
     resave: false
     }));
 require('./src/config/mongoose.config');
@@ -74,6 +78,6 @@ app.post('/generate', (req, res) => {
 });
 
 // Start server
-app.listen(PORT, () => {
-    console.log(`Server running on http://localhost:${PORT}`);
+app.listen(PORT,ip, () => {
+    console.log(`Server running on http://${ip}:${PORT}`);
 });

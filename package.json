@@ -22,6 +22,7 @@
     "express-session": "^1.18.1",
     "express-validator": "^7.2.0",
     "html-pdf": "^3.0.1",
+    "httpstatuscode": "^0.0.2",
     "joi": "^17.13.3",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.7.2",

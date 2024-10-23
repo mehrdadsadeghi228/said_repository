@@ -19,17 +19,14 @@ class AuthController {
       
         const errorValidator = validationResult(req);
         if (!errorValidator) {
-            console.log("here");
             logger.log('error', "error for faild in validateAuthRegisterschema \'"+error+"\'");
             return res.status(HttpStatusCode.NotImplemented).json({
                 statusCodes: HttpStatusCode.NotImplemented,
                 message: errorValidator
             });   
         }
-        console.log(req.body);
         
       const { username, email, password } = req.body;
-        console.log(username, email, password)
       // Check if user already exists
       const existingUser = await User.findOne({ email });
       if (existingUser) {
