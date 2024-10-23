@@ -22,13 +22,16 @@ const deleteCertificationValidation = [
 ]
 
 const getCertificationValidation = [
-    
   param('id').isMongoId().withMessage('Invalid certification ID')
+]
+const getNationcodeCertificationValidation = [
+  param('code').isNumeric().trim().length({min:10,max:11}).withMessage('Invalid National code ')
 ]
 
 module.exports = {
   createCertificationValidation,
   updateCertificationValidation,
   deleteCertificationValidation,
-  getCertificationValidation
+  getCertificationValidation,
+  getNationcodeCertificationValidation
 }

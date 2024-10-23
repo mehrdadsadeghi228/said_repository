@@ -30,16 +30,18 @@
         <div class="bg-white border-4 border-indigo-500 shadow-lg rounded-lg p-12 relative">
             <h1 class="text-5xl font-bold text-center text-gray-800">Certificate of Completion</h1>
             <p class="text-center text-xl mt-6">This is to certify that</p>
-            <h2 class="text-3xl font-semibold text-center text-blue-500 mt-2"><%= name %></h2>
+            <h2 class="text-3xl font-semibold text-center text-blue-500 mt-2"><%= cer.name %></h2>
             <p class="text-center text-xl mt-6">has successfully completed</p>
-            <h3 class="text-2xl font-semibold text-center text-purple-600 mt-2"><%= course %></h3>
-            <p class="text-center text-lg mt-6">Date: <%= date %></p>
+            <h3 class="text-2xl font-semibold text-center text-purple-600 mt-2"><%= cer.NationnalCode %></h3>
+            <p class="text-center text-xl mt-6">with Nationnal Code </p>
+            <h3 class="text-2xl font-semibold text-center text-purple-600 mt-2"><%= cer.couresName %></h3>
+            <p class="text-center text-lg mt-6">IssueDate: <%= cer.issueDate %></p>
 
             <div class="border-t-2 border-gray-300 mt-10"></div>
             
             <!-- Signature and Hologram -->
             <div class="flex justify-between items-center mt-6">
-                <p class="text-xl font-semibold text-left">Date: <%= date %></p>
+                <p class="text-xl font-semibold text-left">ExpiryDate: <%= cer.expiryDate %></p>
                 <div class="text-right">
                     <p class="text-xl font-semibold">Signed by</p>
                     <img src="/img/signature.png" alt="Signature" class="w-32">

@@ -1,11 +1,9 @@
 
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+const {model ,Schema} = require('mongoose');
 
 const CertificationSchema = new Schema({
   name: {
     type: String,
-    required: true,
     trim: true
   },
   NationnalCode:{
@@ -13,7 +11,7 @@ const CertificationSchema = new Schema({
     required: true,
     trim: true
   },  
-  description: {
+  couresName: {
     type: String,
     trim: true
   },
@@ -57,4 +55,5 @@ CertificationSchema.pre('save', function(next) {
   next();
 });
 
-module.exports = mongoose.model('Certification', CertificationSchema);
+const CerModel=model('Certification', CertificationSchema)
+module.exports= {CerModel};
