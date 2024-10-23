@@ -7,7 +7,6 @@ const createCertificationValidation = [
   body('price').isNumeric().withMessage('Price must be a number'),
   body('status').isIn(['active', 'inactive']).withMessage('Status must be either active or inactive')
 ]
-
 const updateCertificationValidation = [
   param('id').isMongoId().withMessage('Invalid certification ID'),
   body('name').optional().notEmpty().withMessage('Name cannot be empty'),
@@ -16,16 +15,14 @@ const updateCertificationValidation = [
   body('price').optional().isNumeric().withMessage('Price must be a number'),
   body('status').optional().isIn(['active', 'inactive']).withMessage('Status must be either active or inactive')
 ]
-
 const deleteCertificationValidation = [
   param('id').isMongoId().withMessage('Invalid certification ID')
 ]
-
 const getCertificationValidation = [
   param('id').isMongoId().withMessage('Invalid certification ID')
 ]
 const getNationcodeCertificationValidation = [
-  param('code').isNumeric().trim().length({min:10,max:11}).withMessage('Invalid National code ')
+  param('code').isNumeric().trim().withMessage('Invalid National code ')
 ]
 
 module.exports = {

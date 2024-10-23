@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const cerController = require('./cer.controller');
-const { updateCertificationValidation, createCertificationValidation, deleteCertificationValidation, getCertificationValidation } = require('./cer.validate');
+const { updateCertificationValidation, createCertificationValidation, deleteCertificationValidation, getCertificationValidation, getNationcodeCertificationValidation } = require('./cer.validate');
 
 // Get all certificates
 router.get('/', cerController.getAllCertifications);
@@ -11,8 +11,8 @@ router.get('/:id', getCertificationValidation,cerController.getCertificationById
 
 router.get('download/:id', getNationcodeCertificationValidation,cerController.downloadCertification);
 
-// Create new certificate
-router.get('index/', createCertificationValidation,cerController.createCertification);
+// index page certificate
+router.get('index/', createCertificationValidation,cerController.EJScreateCertification);
 
 router.post('index/', createCertificationValidation,cerController.createCertification);
 
@@ -22,4 +22,6 @@ router.put('/:id', updateCertificationValidation,cerController.updateCertificati
 // Delete certificate
 router.delete('/:id', deleteCertificationValidation,cerController.deleteCertification);
 
-module.exports = router;
+module.exports = {
+    CerRoutes:router
+};

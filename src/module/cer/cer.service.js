@@ -1,6 +1,6 @@
 
-const { BadRequestError } = require('../../common/errors');
 const { CerModel } = require('./cer.model');
+const createHttpError = require("http-errors");
 
 class CerService {
     
@@ -8,14 +8,14 @@ class CerService {
     try {
         const check=await CerModel.findOne({
             NationnalCode:data.NationnalCode
-        })
+        });
         if(check){
-            throw new BadRequestError('Certification already exists for this code meli');
+          res.status(406).json(createHttpError.NotAcceptable('Error Cer is exist.'));
         }
       const cer = await CerModel.create(data);
       return cer;
     } catch (error) {
-      throw new BadRequestError('Failed to create certification');
+      res.status(500).json({ message: 'Server error', error: error.message });
     }
   }
 
@@ -26,7 +26,7 @@ class CerService {
         NationnalCode:code
       });
       if(!cer){
-        throw new BadRequestError(' there is no Certification for this code meli');
+        throw new createHttpError.BadRequestError(' there is no Certification for this code meli');
     }
           // Render the certificate EJS template
       return res.render('certificate', { cer}, (err, html) => {
@@ -52,7 +52,7 @@ class CerService {
           }
       });
     } catch (error) {
-      throw new BadRequestError('Failed to download  certification');
+      res.status(500).json({ message: 'Server error', error: error.message });
     }
   }
 
@@ -61,7 +61,7 @@ class CerService {
       const cers = await CerModel.find({}).sort({ createdAt: -1},{limit:10});
       return cers;
     } catch (error) {
-      throw new BadRequestError('Failed to fetch certifications');
+      res.status(500).json({ message: 'Server error', error: error.message });
     }
   }
 
@@ -69,11 +69,11 @@ class CerService {
     try {
       const cer = await CerModel.findById(id);
       if (!cer) {
-        throw new BadRequestError('Certification not found');
+        throw new createHttpError.BadRequestError('Certification not found');
       }
       return cer;
     } catch (error) {
-      throw new BadRequestError('Failed to fetch certification');
+      res.status(500).json({ message: 'Server error Failed to fetch certification', error: error.message });
     }
   }
 
@@ -85,7 +85,7 @@ class CerService {
       }
       return cer;
     } catch (error) {
-      throw new BadRequestError('Failed to update certification');
+      res.status(500).json({ message: 'Server error Failed to update certification', error: error.message });
     }
   }
 
@@ -93,11 +93,11 @@ class CerService {
     try {
       const cer = await CerModel.findByIdAndDelete(id);
       if (!cer) {
-        throw new BadRequestError('Certification not found');
+        res.status(500).json({ message: 'Not Found !', error: error.message });
       }
       return cer;
     } catch (error) {
-      throw new BadRequestError('Failed to delete certification');
+      res.status(500).json({ message: 'Server error Failed to delete certification', error: error.message });
     }
   }
 }

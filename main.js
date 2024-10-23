@@ -10,6 +10,8 @@ const morgan = require('morgan');
 const sessions = require('express-session');
 const cookieParser = require('cookie-parser');
 const { log } = require('console');
+const { NotFoundHandler } = require('./src/utills/common/exception/not-found.handler');
+const { AllExceptionHandler } = require('./src/utills/common/exception/all-exception.handler');
 
 
 require("dotenv").config();
@@ -42,41 +44,9 @@ app.use(cors());
 
 app.use(cookieParser());
 app.use(router);
-
-
-app.get('/', (req, res) => {
-    res.render('index');
-});
-
-
-app.post('/generate', (req, res) => {
-    const { name, course, date } = req.body;
-
-    // Render the certificate EJS template
-    res.render('certificate', { name, course, date }, (err, html) => {
-        if (err) {
-            console.error(err);
-            res.status(500).send('Something went wrong.');
-        } else {
-            // Convert the HTML to PDF
-            const options = { format: 'Letter' };
-            pdf.create(html, options).toBuffer((err, buffer) => {
-                if (err) {
-                    console.error(err);
-                    res.status(500).send('Error generating PDF.');
-                } else {
-                    // Set the headers and send the PDF
-                    res.writeHead(200, {
-                        'Content-Type': 'application/pdf',
-                        'Content-Disposition': 'attachment; filename=certificate.pdf',
-                    });
-                    res.end(buffer);
-                }
-            });
-        }
-    });
-});
-
+app.use(morgan("dev"));
+NotFoundHandler(app);
+AllExceptionHandler(app);
 // Start server
 app.listen(PORT,ip, () => {
     console.log(`Server running on http://${ip}:${PORT}`);

@@ -27,30 +27,37 @@ class CerController {
       });
     } catch (error) {
         logger('error for faild in createCertification',error +error.stack);
-        return res.status(StatusCodes.).json({ message: 'Server error', error: error.message });
-        }
-  }
-  async downloadCertification(req, res) {
-    try {
-        const errorValidator = validationResult(req);
-        if (!errorValidator) {
-            logger.log('error', "error for faild in validateAuthRegisterschema \'"+error+"\'");
-            return res.status(HttpStatusCode.NotAcceptable).json({
-                statusCodes: HttpStatusCode.NotAcceptable,
-                message: errorValidator
-            });
-        }
-        const {code} =req.body
-        await this.#cerService.downloadCer(code);
-        return res.status(StatusCodes.OK).json({
-            statusCodes:StatusCodes.OK,
-            message:'Certification dwonload successfully'
-      });
-    } catch (error) {
-        logger('error for faild in  dwonload createCertification',error +error.stack);
         return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: 'Server error', error: error.message });
         }
   }
+    async EJScreateCertification(req,res){
+        try {
+         res.render('index')
+        } catch (error) {
+            
+        }
+    }
+    async downloadCertification(req, res) {
+        try {
+            const errorValidator = validationResult(req);
+            if (!errorValidator) {
+                logger.log('error', "error for faild in validateAuthRegisterschema \'"+error+"\'");
+                return res.status(HttpStatusCode.NotAcceptable).json({
+                    statusCodes: HttpStatusCode.NotAcceptable,
+                    message: errorValidator
+                });
+            }
+            const {code} =req.body
+            await this.#cerService.downloadCer(code);
+            return res.status(StatusCodes.OK).json({
+                statusCodes:StatusCodes.OK,
+                message:'Certification dwonload successfully'
+        });
+        } catch (error) {
+            logger('error for faild in  dwonload createCertification',error +error.stack);
+            return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: 'Server error', error: error.message });
+            }
+    }
   async getAllCertifications(req, res) {
     try {
       const result = await this.#cerService.getAllCertifications();
