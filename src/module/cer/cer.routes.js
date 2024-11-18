@@ -7,14 +7,15 @@ const { updateCertificationValidation, createCertificationValidation, deleteCert
 router.get('/', cerController.getAllCertifications);
 
 // Get certificate by ID
-router.get('/:id', getCertificationValidation,cerController.getCertificationById);
+//router.get('/:id', getCertificationValidation,cerController.getCertificationById);
 
 router.get('download/:id', getNationcodeCertificationValidation,cerController.downloadCertification);
 
 // index page certificate
-router.get('index/', createCertificationValidation,cerController.EJScreateCertification);
+router.get('/index',cerController.EJScreateCertification);
 
-router.post('index/', createCertificationValidation,cerController.createCertification);
+router.post('/index/', createCertificationValidation,cerController.createCertification);
+router.get('/:id', getCertificationValidation,cerController.getCertificationById);
 
 // Update certificate
 router.put('/:id', updateCertificationValidation,cerController.updateCertification);

@@ -5,4 +5,4 @@ const AuthorizationMessage = Object.freeze({
     NotFoundAccount: "not found account",
     InvalidToken: "token in invalid",
 });
-module.exports = AuthorizationMessage
+module.exports = {AuthorizationMessage}

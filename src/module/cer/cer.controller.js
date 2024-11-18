@@ -1,7 +1,7 @@
 
 const CerService = require('./cer.service');
 const { StatusCodes } = require('http-status-codes');
-const logger = require('../../utills/log/winston.config');
+const {logger} = require('../../utills/log/winston.config');
 const { HttpStatusCode } = require('axios');
 
 class CerController {
@@ -14,7 +14,7 @@ class CerController {
     try {
         const errorValidator = validationResult(req);
         if (!errorValidator) {
-            logger.log('error', "error for faild in validateAuthRegisterschema \'"+error+"\'");
+            logger.log('info', "error for faild in validateAuthRegisterschema \'"+error+"\'");
             return res.status(HttpStatusCode.NotAcceptable).json({
                 statusCodes: HttpStatusCode.NotAcceptable,
                 message: errorValidator
@@ -26,15 +26,19 @@ class CerController {
         message:'Certification created successfully'
       });
     } catch (error) {
-        logger('error for faild in createCertification',error +error.stack);
+        logger.error('error for faild in createCertification',error +error.stack);
         return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: 'Server error', error: error.message });
         }
   }
     async EJScreateCertification(req,res){
         try {
+            console.log("here");
+            
          res.render('index')
         } catch (error) {
-            
+            logger.error('error for faild in EJScreateCertification',error +error.stack);
+            return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: 'Server error', error: error.message });
+
         }
     }
     async downloadCertification(req, res) {
@@ -54,19 +58,20 @@ class CerController {
                 message:'Certification dwonload successfully'
         });
         } catch (error) {
-            logger('error for faild in  dwonload createCertification',error +error.stack);
+            logger.log('error for faild in  dwonload downloadCertification',error +error.stack);
             return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: 'Server error', error: error.message });
             }
     }
   async getAllCertifications(req, res) {
     try {
       const result = await this.#cerService.getAllCertifications();
-      logger('error for faild in getAllCertifications',error +error.stack);
+      logger.error('error for faild in getAllCertifications'+error +error.stack);
       return res.status(StatusCodes.OK).json({
           statusCodes:StatusCodes.OK, 
           message:'All Certifications retrieved successfully'
         });
     } catch (error) {
+        logger.log('error',' for faild in  dwonload getAllCertifications'+error +error.stack);
         return res.status(500).json({ message: 'Server error', error: error.message });
     }
   }
@@ -75,7 +80,7 @@ class CerController {
     try {
         const errorValidator = validationResult(req);
         if (!errorValidator) {
-            logger.log('error', "error for faild in validateAuthRegisterschema \'"+error+"\'");
+            logger.info("error for faild in validateAuthRegisterschema \'"+error+"\'");
             return res.status(HttpStatusCode.NotAcceptable).json({
                 statusCodes: HttpStatusCode.NotAcceptable,
                 message: errorValidator
@@ -84,7 +89,7 @@ class CerController {
         const result = await this.#cerService.getCertificationById(req.params.id);
         return handleResponse(res, StatusCodes.OK, 'Certification retrieved successfully', result);
     } catch (error) {
-        logger('error for faild in getCertificationById',error +error.stack);
+        logger.error('error for faild in getCertificationById',error +error.stack);
         return res.status(500).json({ message: 'Server error', error: error.message });
     }
   }
@@ -104,7 +109,7 @@ class CerController {
         return handleResponse(res, StatusCodes.OK, 'Certification updated successfully', result);
     } catch (error) {
 
-        logger('error for faild in updateCertification',error +error.stack);
+        logger.error('error for faild in updateCertification',error +error.stack);
         return res.status(500).json({ message: 'Server error', error: error.message });
     }
   }
@@ -113,7 +118,7 @@ class CerController {
     try {
         const errorValidator = validationResult(req);
         if (!errorValidator) {
-            logger.log('error', "error for faild in validateAuthRegisterschema \'"+error+"\'");
+            logger.log('info', "error for faild in validateAuthRegisterschema \'"+error+"\'");
             return res.status(HttpStatusCode.NotAcceptable).json({
                 statusCodes: HttpStatusCode.NotAcceptable,
                 message: errorValidator
@@ -123,7 +128,7 @@ class CerController {
         await this.#cerService.deleteCertification(req.params.id);
         return handleResponse(res, StatusCodes.OK, 'Certification deleted successfully');
     } catch (error) {
-        logger('error for faild in deleteCertification',error +error.stack);
+        logger.error('error for faild in deleteCertification',error +error.stack);
         return res.status(500).json({ message: 'Server error', error: error.message });
     }
   }

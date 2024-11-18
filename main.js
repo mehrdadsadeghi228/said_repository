@@ -2,7 +2,6 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const ejs = require('ejs');
 const path = require('path');
-const pdf = require('html-pdf');
 const { router } = require('./src/module/routes');
 const SwaggerConfig = require('./src/config/swagger.config');
 const cors=require("cors");
@@ -30,7 +29,6 @@ log(typeof(process.env.ONEDAY))
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'views')));
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(morgan("dev"));
 app.use(express.json());
 app.use(sessions({
     secret:process.env.SECRESTKEYFORSEASION,
@@ -45,6 +43,7 @@ app.use(cors());
 app.use(cookieParser());
 app.use(router);
 app.use(morgan("dev"));
+app.use(morgan("common"));
 NotFoundHandler(app);
 AllExceptionHandler(app);
 // Start server
