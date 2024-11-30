@@ -32,7 +32,7 @@ class CerController {
   }
     async EJScreateCertification(req,res){
         try {            
-         res.render('create-cer')
+         res.render('create')
         } catch (error) {
             logger.error('error for faild in EJScreateCertification',error +error.stack);
             return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: 'Server error', error: error.message });

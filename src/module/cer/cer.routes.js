@@ -12,9 +12,9 @@ router.get('/', cerController.getAllCertifications);
 router.get('download/:id', getNationcodeCertificationValidation,cerController.downloadCertification);
 
 // index page certificate
-router.get('/create',cerController.EJScreateCertification);
+router.get('/create/',cerController.EJScreateCertification);
 
-router.post('/index/', createCertificationValidation,cerController.createCertification);
+router.post('/created/', createCertificationValidation,cerController.createCertification);
 
 router.get('/:id', getCertificationValidation,cerController.getCertificationById);
 
