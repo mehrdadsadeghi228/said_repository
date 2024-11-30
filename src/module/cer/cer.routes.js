@@ -15,6 +15,7 @@ router.get('download/:id', getNationcodeCertificationValidation,cerController.do
 router.get('/index',cerController.EJScreateCertification);
 
 router.post('/index/', createCertificationValidation,cerController.createCertification);
+
 router.get('/:id', getCertificationValidation,cerController.getCertificationById);
 
 // Update certificate
