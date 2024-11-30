@@ -13,6 +13,7 @@ router.get('download/:id', getNationcodeCertificationValidation,cerController.do
 
 // index page certificate
 router.get('/create/',cerController.EJScreateCertification);
+router.get('/test',cerController.test);
 
 router.post('/created/', createCertificationValidation,cerController.createCertification);
 

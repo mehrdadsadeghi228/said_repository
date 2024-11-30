@@ -39,6 +39,15 @@ class CerController {
 
         }
     }
+    async test(req,res){
+        try {            
+         res.render('v2-cer.ejs')
+        } catch (error) {
+            logger.error('error for faild in EJScreateCertification',error +error.stack);
+            return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: 'Server error', error: error.message });
+
+        }
+    }
     async downloadCertification(req, res) {
         try {
             const errorValidator = validationResult(req);
