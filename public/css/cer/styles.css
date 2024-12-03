@@ -5,8 +5,7 @@ body {
     justify-content: center;  
     align-items: center;  
     height: 100vh;  
-}  
-
+}
 .certificate {
     background: white url('/img/vecteezy_mandalas-geometric-pattern-warm-mandala-rainbow-flower-of_9662333.png') no-repeat center center;
     background-size: cover; /* تغییر اندازه تصویر برای پوشش کامل */
