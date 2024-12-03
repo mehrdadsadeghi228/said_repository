@@ -17,7 +17,7 @@ router.get('/test',cerController.test);
 
 router.post('/created/', createCertificationValidation,cerController.createCertification);
 
-router.get('/:id', getCertificationValidation,cerController.getCertificationById);
+//router.get('/:id', getCertificationValidation,cerController.getCertificationById);
 
 // Update certificate
 router.put('/:id', updateCertificationValidation,cerController.updateCertification);

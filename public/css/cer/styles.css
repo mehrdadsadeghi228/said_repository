@@ -7,14 +7,15 @@ body {
     height: 100vh;  
 }  
 
-.certificate {  
-    background: white;  
-    border: 2px solid #00a651;  
-    width: 700px;  
-    padding: 20px;  
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);  
-    position: relative;  
-}  
+.certificate {
+    background: white url('/img/vecteezy_mandalas-geometric-pattern-warm-mandala-rainbow-flower-of_9662333.png') no-repeat center center;
+    background-size: cover; /* تغییر اندازه تصویر برای پوشش کامل */
+    border: 2px solid #00a651;
+    width: 21cm; /* عرض A4 */
+    padding: 30px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+} 
 
 .header {  
     text-align: left;  
