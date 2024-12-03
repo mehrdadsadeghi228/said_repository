@@ -1,0 +1,112 @@
+body {  
+    font-family: 'Arial', sans-serif;  
+    background-color: #f4f4f4;  
+    display: flex;  
+    justify-content: center;  
+    align-items: center;  
+    height: 100vh;  
+}
+
+.certificate {
+    background: white url('/img/vecteezy_mandalas-geometric-pattern-warm-mandala-rainbow-flower-of_9662333.png') no-repeat center center;
+    background-size: cover; /* تغییر اندازه تصویر برای پوشش کامل */
+    border: 2px solid #00a651;
+    width: 21cm; /* عرض A4 */
+    padding: 30px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+} 
+
+.header {  
+    text-align: left;  
+    margin-bottom: 15px;  
+}  
+
+.logo {  
+    font-size: 30px;  
+    font-weight: bold;  
+}  
+
+.subtitle {  
+    font-size: 16px;  
+    color: #888;  
+}  
+
+.date {  
+    text-align: left;  
+    font-size: 14px;
+    margin-top: 20px;  
+    margin-bottom: 10px;  
+}  
+
+.name {  
+    font-size: 24px;  
+    font-weight: bold;  
+    text-align: center;  
+    margin: 10px 0;  
+}  
+
+.completion {  
+    text-align: center;  
+    margin-top: 10px;  
+}  
+
+.course {  
+    font-size: 22px;  
+    font-weight: bold;  
+    text-align: center;  
+    margin: 10px 0;  
+}  
+
+.description {  
+    margin: 20px 0;  
+}
+
+.description ul {
+    display: flex;
+    padding-left: 20px; 
+    flex-wrap: wrap; 
+    gap: 10px; 
+}
+
+.description ul li {
+    width: calc(50% - 10px);
+    text-align: left;
+}
+
+.signatures {  
+    display: flex;  
+    justify-content: space-between;  
+    margin-top: 40px;
+    gap: 30px;  
+}  
+
+.signature {
+    border-top: 2px solid #000;  
+    text-align: center;  
+}  
+
+.verify {  
+    text-align: center;  
+    margin-top: 20px;  
+}  
+
+.badge {  
+    position: absolute;  
+    top: 20px;  
+    right: 20px;  
+    background-color: #00a651;  
+    color: white;  
+    padding: 10px;  
+    border-radius: 5px;  
+    text-align: center;  
+}  
+
+.level {  
+    font-weight: bold;  
+    font-size: 18px;  
+}  
+
+.cert-text {  
+    font-size: 14px;  
+}
