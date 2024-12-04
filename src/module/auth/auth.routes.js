@@ -8,6 +8,7 @@ AuthRoutes.post('/register', authController.register);
 
 // Login route
 AuthRoutes.post('/login', validateAuthLoginschema, authController.login);
+AuthRoutes.post('/logout', validateAuthLoginschema, authController.logOut);
 
 // Logout route
 //AuthRoutes.post('/logout', authController.logout);

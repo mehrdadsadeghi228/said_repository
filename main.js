@@ -25,7 +25,6 @@ app.set('view engine', 'ejs');
 // Middleware for serving static files
 SwaggerConfig(app);
 
-log(typeof(process.env.ONEDAY))
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'views')));
 app.use(bodyParser.urlencoded({ extended: true }));

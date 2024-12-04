@@ -15,6 +15,10 @@ const CertificationSchema = new Schema({
     type: String,
     trim: true
   },
+  subCouresName: {
+    type: String,
+    trim: true
+  },
   issuingOrganization: {
     type: String,
     required: true,
@@ -52,6 +56,7 @@ const CertificationSchema = new Schema({
 
 CertificationSchema.pre('save', function(next) {
   this.updatedAt = Date.now();
+  this.verificationUrl = `https:/daryaTeach.ir/verify/${this.NationnalCode}`;
   next();
 });
 

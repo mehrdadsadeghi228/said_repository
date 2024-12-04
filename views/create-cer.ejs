@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certificate Generator</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+    <%- include('partials/menu') %>
+
+    <div class="container mx-auto py-12">
+        <div class="max-w-lg mx-auto bg-white shadow-lg rounded-lg p-8">
+            <h1 class="text-3xl font-bold text-center mb-6 text-gray-800">Draya-Teach Group</h1>
+            <h1 class="text-3xl font-bold text-center mb-6 text-gray-800">Generate Your Certificate</h1>
+            <form action="/cer/create/" method="POST"  class="space-y-6">
+                <div>
+                    <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
+                    <input type="text" id="name" name="name" class="block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" required>
+                </div>
+                <div>
+                    <label for="course" class="block text-sm font-medium text-gray-700">Course Name /Event</label>
+                    <input type="text" id="course" name="course" class="block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" required>
+                </div>
+                <div>
+                    <label for="nationnalcode" class="block text-sm font-medium text-gray-700">NationnalCode</label>
+                    <input type="text" id="nationnalcode" name="nationnalcode" class="block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" required>
+                </div>
+                <div>
+                    <label for="subcouresname" class="block text-sm font-medium text-gray-700">subCouresName</label>
+                    <input type="text" id="subcouresname" name="subcouresname" class="block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" required>
+                </div>
+       
+                <div>
+                    <label for="issuedate" class="block text-sm font-medium text-gray-700">issueDate</label>
+                    <input type="date" id="issuedate" name="issuedate" class="block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" required>
+                </div>
+                <div>
+                    <label for="expirydate" class="block text-sm font-medium text-gray-700">expiryDate</label>
+                    <input type="date" id="expirydate" name="expirydate" class="block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" required>
+                </div>         
+                <div class="text-center">
+                    <button type="submit" class="w-full py-2 px-4 bg-indigo-600 text-white font-bold rounded-md shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                       Save&Generate Certificate
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

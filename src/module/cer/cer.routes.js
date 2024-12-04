@@ -12,11 +12,12 @@ router.get('/', cerController.getAllCertifications);
 router.get('download/:id', getNationcodeCertificationValidation,cerController.downloadCertification);
 
 // index page certificate
-router.get('/index',cerController.EJScreateCertification);
+router.get('/create',cerController.EJScreateCertification);
+router.get('/test',cerController.test);
 
-router.post('/index/', createCertificationValidation,cerController.createCertification);
+router.post('/created/', createCertificationValidation,cerController.createCertification);
 
-router.get('/:id', getCertificationValidation,cerController.getCertificationById);
+//router.get('/:id', getCertificationValidation,cerController.getCertificationById);
 
 // Update certificate
 router.put('/:id', updateCertificationValidation,cerController.updateCertification);

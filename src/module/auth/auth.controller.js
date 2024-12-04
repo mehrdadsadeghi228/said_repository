@@ -138,6 +138,24 @@ class AuthController {
     // This would be used after a user clicks on a reset password link
     res.status(501).json({ message: 'Reset password functionality not implemented yet' });
   }
+  async logOut(req, res) {
+    if (req.session) {
+      req.session.destroy((err) => {
+        if (err) {
+          console.error('Error during logout:', err);
+          res.status(500).send('Logout failed');
+        } else {
+          res.redirect('/'); // Redirect to home after logout
+        }
+      });
+    } else {
+      res.redirect('/'); // No session, just redirect to home
+    }
+
+}
+
+    // For session-based authentication
+    
 }
 
 module.exports = new AuthController();

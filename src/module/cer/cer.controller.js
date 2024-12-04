@@ -31,10 +31,17 @@ class CerController {
         }
   }
     async EJScreateCertification(req,res){
-        try {
-            console.log("here");
-            
-         res.render('index')
+        try {            
+         res.render('create-cer.ejs')
+        } catch (error) {
+            logger.error('error for faild in EJScreateCertification',error +error.stack);
+            return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: 'Server error', error: error.message });
+
+        }
+    }
+    async test(req,res){
+        try {            
+         res.render('v2-cer.ejs')
         } catch (error) {
             logger.error('error for faild in EJScreateCertification',error +error.stack);
             return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: 'Server error', error: error.message });
