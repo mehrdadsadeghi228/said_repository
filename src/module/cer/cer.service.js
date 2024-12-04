@@ -12,7 +12,14 @@ class CerService {
         if(check){
           res.status(406).json(createHttpError.NotAcceptable('Error Cer is exist.'));
         }
-      const cer = await CerModel.create(data);
+      const cer = await CerModel.create({
+        name: data.name,
+        NationnalCode: data.NationnalCode,
+        subCouresName: data.subCouresName,
+        issueDate: data.issueDate,
+        expiryDate: data.expiryDate,
+        issuingOrganization:"Darya-Teach"
+      });
       return cer;
     } catch (error) {
       res.status(500).json({ message: 'Server error', error: error.message });
