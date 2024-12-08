@@ -15,7 +15,7 @@ const CertificationSchema = new Schema({
     type: String,
     trim: true
   },
-  subCouresName: {
+  content: {
     type: String,
     trim: true
   },
@@ -56,7 +56,7 @@ const CertificationSchema = new Schema({
 
 CertificationSchema.pre('save', function(next) {
   this.updatedAt = Date.now();
-  this.verificationUrl = `https:/daryaTeach.ir/verify/${this.NationnalCode}`;
+  this.verificationUrl = `https:/daryateach.ir/verify/${this.NationnalCode}`;
   next();
 });
 

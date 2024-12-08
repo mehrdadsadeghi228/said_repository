@@ -3,12 +3,9 @@ const CerService = require('./cer.service');
 const { StatusCodes } = require('http-status-codes');
 const {logger} = require('../../utills/log/winston.config');
 const { HttpStatusCode } = require('axios');
-
+const { validationResult } = require('express-validator');
 class CerController {
-    #cerService
-    constructor() {
-    this.#cerService = new CerService();
-  }
+  
 
   async createCertification(req, res) {
     try {
@@ -20,7 +17,17 @@ class CerController {
                 message: errorValidator
             });   
         }
-      const result = await this.#cerService.createCertification(req.body);
+        console.log(req.body);
+
+      const data=  {
+                name: 'mehrdad',
+                course: 'fuckitup',
+                nationnalcode: '256566589',
+                content: 'cvv.pfkrtjrtj8trj',
+                issuedate: '2024-12-25',
+                expirydate: '2024-12-18'
+                };
+       await CerService.create(req.body);
       return res.status(StatusCodes.CREATED).json({
         statusCodes:StatusCodes.CREATED, 
         message:'Certification created successfully'
@@ -59,7 +66,7 @@ class CerController {
                 });
             }
             const {code} =req.body
-            await this.#cerService.downloadCer(code);
+           const data= await CerService.downloadCer(code);
             return res.status(StatusCodes.OK).json({
                 statusCodes:StatusCodes.OK,
                 message:'Certification dwonload successfully'
@@ -71,7 +78,7 @@ class CerController {
     }
   async getAllCertifications(req, res) {
     try {
-      const result = await this.#cerService.getAllCertifications();
+      //const result = await this.#cerService.getAllCertifications();
       logger.error('error for faild in getAllCertifications'+error +error.stack);
       return res.status(StatusCodes.OK).json({
           statusCodes:StatusCodes.OK, 
@@ -93,7 +100,7 @@ class CerController {
                 message: errorValidator
             });   
         }
-        const result = await this.#cerService.getCertificationById(req.params.id);
+        //const result = await this.#cerService.getCertificationById(req.params.id);
         return handleResponse(res, StatusCodes.OK, 'Certification retrieved successfully', result);
     } catch (error) {
         logger.error('error for faild in getCertificationById',error +error.stack);
@@ -112,7 +119,7 @@ class CerController {
             });   
         }
         
-        const result = await this.#cerService.updateCertification(req.params.id, req.body);
+        //const result = await this.#cerService.updateCertification(req.params.id, req.body);
         return handleResponse(res, StatusCodes.OK, 'Certification updated successfully', result);
     } catch (error) {
 
@@ -132,7 +139,7 @@ class CerController {
             });   
         }
         
-        await this.#cerService.deleteCertification(req.params.id);
+        //await this.#cerService.deleteCertification(req.params.id);
         return handleResponse(res, StatusCodes.OK, 'Certification deleted successfully');
     } catch (error) {
         logger.error('error for faild in deleteCertification',error +error.stack);

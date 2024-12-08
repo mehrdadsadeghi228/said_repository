@@ -2,10 +2,11 @@ const { body, param } = require('express-validator')
 
 const createCertificationValidation = [
   body('name').notEmpty().withMessage('Name is required'),
-  body('description').notEmpty().withMessage('Description is required'),
-  body('validityPeriod').isNumeric().withMessage('Validity period must be a number'),
-  body('price').isNumeric().withMessage('Price must be a number'),
-  body('status').isIn(['active', 'inactive']).withMessage('Status must be either active or inactive')
+  body('course').notEmpty().withMessage('course is required'),
+  body('nationnalcode').isNumeric().withMessage(' nationnalcode must be a number'),
+  body('content').isString().withMessage('content must be a string'),
+  body('issuedate').isDate().withMessage('issuedate must be a date'),
+  body('expirydate').isDate().withMessage('expirydate must be a date'),
 ]
 const updateCertificationValidation = [
   param('id').isMongoId().withMessage('Invalid certification ID'),

@@ -1,39 +1,45 @@
 
+const autoBind = require('auto-bind');
 const { CerModel } = require('./cer.model');
 const createHttpError = require("http-errors");
 
 class CerService {
-    
-  static async create(data) {
+
+   async create(data) {
     try {
         const check=await CerModel.findOne({
-            NationnalCode:data.NationnalCode
+            NationnalCode:data.nationnalcode
         });
         if(check){
           res.status(406).json(createHttpError.NotAcceptable('Error Cer is exist.'));
         }
       const cer = await CerModel.create({
         name: data.name,
-        NationnalCode: data.NationnalCode,
-        subCouresName: data.subCouresName,
-        issueDate: data.issueDate,
-        expiryDate: data.expiryDate,
+        couresName: data.course,
+        NationnalCode: data.nationnalcode,
+        content: data.content,
+        issueDate: data.issuedate,
+        expiryDate: data.expirydate,
         issuingOrganization:"Darya-Teach"
       });
-      return cer;
+      return  cer.save();
     } catch (error) {
+      console.log("header");
+      
       res.status(500).json({ message: 'Server error', error: error.message });
     }
   }
 
    async downloadCer(code) {
     try {
-
+        if(!code && typeof(code)=='number' ){
+            throw new createHttpError[403](' there is no Certification for this code meli');
+        }
         const cer = await CerModel.findOne({
         NationnalCode:code
       });
       if(!cer){
-        throw new createHttpError.BadRequestError(' there is no Certification for this code meli');
+        throw new createHttpError[403](' there is no Certification for this code meli');
     }
           // Render the certificate EJS template
       return res.render('certificate', { cer}, (err, html) => {
@@ -63,7 +69,7 @@ class CerService {
     }
   }
 
-  static async getAll() {
+   async getAll() {
     try {
       const cers = await CerModel.find({}).sort({ createdAt: -1},{limit:10});
       return cers;
@@ -72,7 +78,7 @@ class CerService {
     }
   }
 
-  static async getById(id) {
+   async getById(id) {
     try {
       const cer = await CerModel.findById(id);
       if (!cer) {
@@ -84,7 +90,7 @@ class CerService {
     }
   }
 
-  static async update(id, data) {
+   async update(id, data) {
     try {
       const cer = await CerModel.findByIdAndUpdate(id, data, { new: true });
       if (!cer) {
@@ -96,7 +102,7 @@ class CerService {
     }
   }
 
-  static async delete(id) {
+   async delete(id) {
     try {
       const cer = await CerModel.findByIdAndDelete(id);
       if (!cer) {
@@ -109,4 +115,4 @@ class CerService {
   }
 }
 
-module.exports = CerService;
+module.exports = new CerService();
