@@ -23,7 +23,7 @@ const getCertificationValidation = [
   param('id').isMongoId().withMessage('Invalid certification ID')
 ]
 const getNationcodeCertificationValidation = [
-  param('code').isNumeric().trim().withMessage('Invalid National code ')
+  body('code').isNumeric().trim().withMessage('Invalid National code ')
 ]
 
 module.exports = {

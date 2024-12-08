@@ -9,13 +9,16 @@ router.get('/', cerController.getAllCertifications);
 // Get certificate by ID
 //router.get('/:id', getCertificationValidation,cerController.getCertificationById);
 
-router.get('download/:id', getNationcodeCertificationValidation,cerController.downloadCertification);
 
 // index page certificate
 router.get('/create',cerController.EJScreateCertification);
+router.post('/created/', createCertificationValidation,cerController.createCertification);
+
 router.get('/test',cerController.test);
 
-router.post('/created/', createCertificationValidation,cerController.createCertification);
+router.get('/dwonload',cerController.downloadCertificationEJS);
+router.post('/download/serach/', getNationcodeCertificationValidation,cerController.downloadCertification);
+
 
 //router.get('/:id', getCertificationValidation,cerController.getCertificationById);
 

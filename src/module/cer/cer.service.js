@@ -37,33 +37,19 @@ class CerService {
         }
         const cer = await CerModel.findOne({
         NationnalCode:code
+      },{
+        content:1,
+        name:1,
+        couresName:1,
+        _id:0,
+        verificationUrl:1
       });
       if(!cer){
         throw new createHttpError[403](' there is no Certification for this code meli');
     }
-          // Render the certificate EJS template
-      return res.render('certificate', { cer}, (err, html) => {
-          if (err) {
-              console.error(err);
-              res.status(500).send('Something went wrong.');
-          } else {
-              // Convert the HTML to PDF
-              const options = { format: 'Letter' };
-              pdf.create(html, options).toBuffer((err, buffer) => {
-                  if (err) {
-                      console.error(err);
-                      res.status(500).send('Error generating PDF.');
-                  } else {
-                      // Set the headers and send the PDF
-                      res.writeHead(200, {
-                          'Content-Type': 'application/pdf',
-                          'Content-Disposition': 'attachment; filename=certificate.pdf',
-                      });
-                      res.end(buffer);
-                  }
-              });
-          }
-      });
+    
+    return cer;
+       
     } catch (error) {
       res.status(500).json({ message: 'Server error', error: error.message });
     }

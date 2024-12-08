@@ -3,7 +3,12 @@ const CerService = require('./cer.service');
 const { StatusCodes } = require('http-status-codes');
 const {logger} = require('../../utills/log/winston.config');
 const { HttpStatusCode } = require('axios');
+const pdf = require('html-pdf');
+const ejs = require("ejs");
+const path=require("path");
 const { validationResult } = require('express-validator');
+const puppeteer=require("puppeteer")
+
 class CerController {
   
 
@@ -55,6 +60,14 @@ class CerController {
 
         }
     }
+    async downloadCertificationEJS(req, res) {
+            try {            
+                res.render('download-cer.ejs')
+               } catch (error) {
+                   logger.error('error for faild in downloadCertificationEJS',error +error.stack);
+                   return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: 'Server error', error: error.message });
+               }
+    }
     async downloadCertification(req, res) {
         try {
             const errorValidator = validationResult(req);
@@ -66,11 +79,57 @@ class CerController {
                 });
             }
             const {code} =req.body
-           const data= await CerService.downloadCer(code);
-            return res.status(StatusCodes.OK).json({
-                statusCodes:StatusCodes.OK,
-                message:'Certification dwonload successfully'
-        });
+            console.log(code);
+            
+           const cer= await CerService.downloadCer(code);
+           console.log(cer);
+           const html = await ejs.renderFile(path.join( './views/', 'certificate.ejs'), {
+          cer
+          });
+        
+          // Launch Puppeteer to create the PDF
+          const browser = await puppeteer.launch();
+          const page = await browser.newPage();
+          await page.setContent(html, { waitUntil: 'domcontentloaded' });
+        
+          // Create PDF
+          const pdfBuffer = await page.pdf({ format: 'A4' });
+        
+          await browser.close();
+        
+          // Send the PDF as a download
+          res.set({
+            'Content-Type': 'application/pdf',
+            'Content-Disposition': 'attachment; filename="generated.pdf"',
+          });
+          res.send(pdfBuffer);
+        
+        
+            // Render the certificate EJS template
+           /**
+            *  return res.render('certificate.ejs', { cer}, (err, html) => {
+                if (err) {
+                    console.error(err);
+                    res.status(500).send('Something went wrong.');
+                } else {
+                    // Convert the HTML to PDF
+                    const options = { format: 'Letter' };
+                    pdf.create(html, options).toBuffer((err, buffer) => {
+                        if (err) {
+                            console.error(err);
+                            res.status(500).send('Error generating PDF.');
+                        } else {
+                            // Set the headers and send the PDF
+                            res.writeHead(200, {
+                                'Content-Type': 'application/pdf',
+                                'Content-Disposition': 'attachment; filename=certificate.pdf',
+                            });
+                            res.end(buffer);
+                        }
+                    });
+                }
+            });
+            */
         } catch (error) {
             logger.log('error for faild in  dwonload downloadCertification',error +error.stack);
             return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: 'Server error', error: error.message });
