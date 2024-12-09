@@ -17,7 +17,8 @@ router.post('/created/', createCertificationValidation,cerController.createCerti
 router.get('/test',cerController.test);
 
 router.get('/dwonload',cerController.downloadCertificationEJS);
-router.post('/download/serach/', getNationcodeCertificationValidation,cerController.downloadCertification);
+//router.post('/download/serach/', getNationcodeCertificationValidation,cerController.downloadCertification);
+router.post('/download/serach/', getNationcodeCertificationValidation,cerController.downloadCertification2);
 
 
 //router.get('/:id', getCertificationValidation,cerController.getCertificationById);
