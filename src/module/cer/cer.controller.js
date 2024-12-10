@@ -3,14 +3,15 @@ const CerService = require('./cer.service');
 const { StatusCodes } = require('http-status-codes');
 const {logger} = require('../../utills/log/winston.config');
 const { HttpStatusCode } = require('axios');
-const pdf = require('html-pdf');
+var pdf = require("pdf-creator-node");
+
 const ejs = require("ejs");
 const path=require("path");
 const { validationResult } = require('express-validator');
 const fs = require('fs');
 const puppeteer = require('puppeteer');
 const { log } = require('winston');
-
+const {PdfDocument} =require("@ironsoftware/ironpdf");
 class CerController {
   
 
@@ -194,11 +195,28 @@ class CerController {
             const img='./public/img/logo-no-background.png';
             console.log(img);
             console.log("here");
+            const outputPath = path.join(__dirname, "certificate.pdf");
 
             const imagePath ='/logo-no-background.png';
             const template  = fs.readFileSync(path.join( './views/', 'certificate.ejs'), 'utf-8');
-         
-            return await res.render(template, { imagePath,cer}, (err, html) => {
+            const render =  ejs.render(template, { imagePath ,cer});
+            var document = {
+                html: template,
+                data: {
+                  users: users,
+                },
+                path: "./output.pdf",
+                type: "",
+              };
+            pdf
+            .create(render)
+            .then((res) => {
+              console.log(res);
+            })
+            .catch((error) => {
+              console.error(error);
+            });
+           /* return await res.render(template, { imagePath,cer}, (err, html) => {
                 if (err) {
                     console.error(err.message);
                     res.status(500).send('Something went wrong.');
@@ -223,7 +241,7 @@ class CerController {
           
       
         
-        
+        */
             // Render the certificate EJS template
            /**
             *  
