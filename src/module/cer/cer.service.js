@@ -1,5 +1,4 @@
 
-const autoBind = require('auto-bind');
 const { CerModel } = require('./cer.model');
 const createHttpError = require("http-errors");
 
@@ -7,11 +6,11 @@ class CerService {
 
    async create(data) {
     try {
-        const check=await CerModel.findOne({
+        const check = await CerModel.findOne({
             NationnalCode:data.nationnalcode
         });
         if(check){
-          res.status(406).render("notexist.ejs");
+          throw new createHttpError[406]('there was cer for this code meli');
         }
       const cer = await CerModel.create({
         name: data.name,
@@ -22,11 +21,9 @@ class CerService {
         expiryDate: data.expirydate,
         issuingOrganization:"Darya-Teach"
       });
-      return  cer.save();
+      return cer;
     } catch (error) {
-      console.log("header");
-      
-      res.status(500).json({ message: 'Server error', error: error.message });
+      throw new createHttpError[500](' Server error');
     }
   }
 
@@ -44,16 +41,13 @@ class CerService {
         _id:0,
         verificationUrl:1
       });
-    
-    
-    return cer;
-       
+    return cer;     
     } catch (error) {
       res.status(500).json({ message: 'Server error', error: error.message });
     }
   }
   
-    /** ------------------------- do not yet code down -------------------------------------- */
+  /** ------------------------- do not yet code down -------------------------------------- */
 
    async getAll() {
     try {

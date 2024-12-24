@@ -30,7 +30,7 @@ app.use(sessions({
     cookie: { maxAge:Number( process.env.ONEDAY) },
     resave: false
     }));
-require('./src/config/mongoose.config');
+require('./src/config/atlas.js');
 app.use(cors());
 // Routes
 

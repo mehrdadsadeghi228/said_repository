@@ -10,7 +10,7 @@ const cerController = require('./cer.controller');
 // index page certificate
 router.get('/create',cerController.EJScreateCertification);
 router.post('/created/', createCertificationValidation,cerController.createCertification);
-router.get('/download/serach/', getNationcodeCertificationValidation,cerController.downloadCertification);
+router.get('/download/', getNationcodeCertificationValidation,cerController.downloadCertification);
 
 
 //router.get('/:id', getCertificationValidation,cerController.getCertificationById);

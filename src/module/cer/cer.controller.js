@@ -12,7 +12,6 @@ class CerController {
         } catch (error) {
             logger.error('error for faild in EJScreateCertification',error +error.stack);
             return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: 'Server error', error: error.message });
-
         }
     }
     async createCertification(req, res) {
@@ -25,7 +24,6 @@ class CerController {
                     message: errorValidator
                 });   
             }
-
         await CerService.create(req.body);
         return res.status(StatusCodes.CREATED).json({
             statusCodes:StatusCodes.CREATED, 

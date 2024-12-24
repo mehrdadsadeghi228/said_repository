@@ -5,12 +5,10 @@ var winston = require('winston');
 const User = require('./auth.model.js');
 const { validationResult } = require('express-validator');
 const logger = require('../../utills/log/winston.config.js');
-const autoBind = require("auto-bind");
 
 
 class AuthController {
   constructor(){
-    autoBind(this);
   }
   async register(req, res,next) {
     try {
