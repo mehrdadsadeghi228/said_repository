@@ -1,9 +1,9 @@
 const { default: mongoose } = require("mongoose");
 require("dotenv").config();
 const tempText="Mongoose status is : "
-const AtlasURL=process.env.MONGODB_URI;
+const monogourl="mongodb://root:1ghLoIcLjglaKTKEk6Kk554I@said:27017/my-app?authSource=admin";
 try {
-    mongoose.connect(AtlasURL);
+    mongoose.connect(monogourl);
     mongoose.connection.on('connected', () => console.log(tempText,'connected'));
     mongoose.connection.on('open', () => console.log(tempText,'open'));
     mongoose.connection.on('disconnected', () => console.log(tempText,'disconnected'));
