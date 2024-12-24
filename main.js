@@ -8,7 +8,6 @@ const cors=require("cors");
 const morgan = require('morgan');
 const sessions = require('express-session');
 const cookieParser = require('cookie-parser');
-const { log } = require('console');
 const { NotFoundHandler } = require('./src/utills/common/exception/not-found.handler');
 const { AllExceptionHandler } = require('./src/utills/common/exception/all-exception.handler');
 
@@ -18,7 +17,6 @@ require("dotenv").config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const ip=process.env.IP|| '127.0.2.1';
 // Set EJS as the template engine
 app.set('view engine', 'ejs');
 
@@ -47,5 +45,5 @@ NotFoundHandler(app);
 AllExceptionHandler(app);
 // Start server
 app.listen(PORT,ip, () => {
-    console.log(`Server running on http://${ip}:${PORT}`);
+    console.log(`Server running on port : ${PORT}`);
 });

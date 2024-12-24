@@ -11,7 +11,7 @@ class CerService {
             NationnalCode:data.nationnalcode
         });
         if(check){
-          res.status(406).json(createHttpError.NotAcceptable('Error Cer is exist.'));
+          res.status(406).render("notexist.ejs");
         }
       const cer = await CerModel.create({
         name: data.name,
@@ -44,9 +44,7 @@ class CerService {
         _id:0,
         verificationUrl:1
       });
-      if(!cer){
-        throw new createHttpError[403](' there is no Certification for this code meli');
-    }
+    
     
     return cer;
        
@@ -54,6 +52,8 @@ class CerService {
       res.status(500).json({ message: 'Server error', error: error.message });
     }
   }
+  
+    /** ------------------------- do not yet code down -------------------------------------- */
 
    async getAll() {
     try {
