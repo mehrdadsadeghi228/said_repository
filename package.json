@@ -30,7 +30,6 @@
     "mongoose": "^8.7.2",
     "morgan": "^1.10.0",
     "nodemon": "^3.1.7",
-
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1",
     "tailwindcss": "^3.4.16",

@@ -41,6 +41,6 @@ app.use(morgan("common"));
 NotFoundHandler(app);
 AllExceptionHandler(app);
 // Start server
-app.listen(PORT,ip, () => {
+app.listen(PORT, () => {
     console.log(`Server running on port : ${PORT}`);
 });

@@ -53,25 +53,8 @@ class CerController {
                   
              return res.render("certificate.ejs",{cer});
           
-             * 
-          // Launch Puppeteer to create the PDF
-          const browser = await puppeteer.launch();
-          const page = await browser.newPage();
-          await page.setContent(html, { waitUntil: 'domcontentloaded' });
-        
-          // Create PDF
-          const pdfBuffer = await page.pdf();
-        
-          await browser.close();
-        
-          // Send the PDF as a download
-          res.set({
-            'Content-Type': 'application/pdf',
-            'Content-Disposition': 'attachment; filename="generated.pdf"',
-          });
-          res.send(pdfBuffer);
-        
-             */
+             
+      
         } catch (error) {
             logger.log('error for faild in  dwonload downloadCertification',error +error.stack);
             return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: 'Server error', error: error.message });
