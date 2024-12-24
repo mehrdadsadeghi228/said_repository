@@ -1,17 +1,24 @@
 
-const { CerModel } = require('./cer.model');
 const createHttpError = require("http-errors");
-
+const { CerModel } = require("./cer.model");
 class CerService {
 
    async create(data) {
     try {
-        const check = await CerModel.findOne({
-            NationnalCode:data.nationnalcode
-        });
-        if(check){
-          throw new createHttpError[406]('there was cer for this code meli');
-        }
+      console.log("here");
+      
+      const check = await CerModel.findOne({
+        NationnalCode:data.nationnalcode
+    });
+    console.log("here2");
+
+    if(check){
+      throw new createHttpError[406]('there was cer for this code meli');
+    }
+        console.log("here3");
+
+        console.log(check);
+        
       const cer = await CerModel.create({
         name: data.name,
         couresName: data.course,
@@ -21,9 +28,11 @@ class CerService {
         expiryDate: data.expirydate,
         issuingOrganization:"Darya-Teach"
       });
+      console.log(cer);
+      
       return cer;
     } catch (error) {
-      throw new createHttpError[500](' Server error');
+      throw new createHttpError[500]('Server error'+error);
     }
   }
 
@@ -43,7 +52,7 @@ class CerService {
       });
     return cer;     
     } catch (error) {
-      res.status(500).json({ message: 'Server error', error: error.message });
+      return{ message: 'Server error', error: error.message }
     }
   }
   

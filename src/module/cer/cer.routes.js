@@ -12,6 +12,8 @@ router.get('/create',cerController.EJScreateCertification);
 router.post('/created/', createCertificationValidation,cerController.createCertification);
 router.get('/download/', getNationcodeCertificationValidation,cerController.downloadCertification);
 
+router.get('/verify',cerController.verify);
+router.post('/verify/',cerController.getCer);
 
 //router.get('/:id', getCertificationValidation,cerController.getCertificationById);
 

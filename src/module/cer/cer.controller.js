@@ -24,7 +24,9 @@ class CerController {
                     message: errorValidator
                 });   
             }
-        await CerService.create(req.body);
+            const data = req.body;
+            
+        await CerService.create(data);
         return res.status(StatusCodes.CREATED).json({
             statusCodes:StatusCodes.CREATED, 
             message:'Certification created successfully'
@@ -58,8 +60,32 @@ class CerController {
             return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: 'Server error', error: error.message });
             }
     }
+    async verify(req,res){
+        try {            
+         res.render('verify.ejs')
+        } catch (error) {
+            return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: 'Server error', error: error.message });
 
+        }
+    }
+    async getCer(req,res,next){
+        try { 
+       
+            const {code} =req.body
+           
+            
+           const cer= await CerService.downloadCer(code);
+                  
+              res.render('certificate',{cer})
+           
+        
+        } catch (error) {
+                logger.error('error for faild in getCer',error +error.stack);
+                return res.status(HttpStatusCode.InternalServerError).json({ message: 'Server error', error: error.message });
 
+            }
+    }
+ 
     /** ------------------------- do not yet code down -------------------------------------- */
   async getAllCertifications(req, res) {
     try {

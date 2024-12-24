@@ -19,28 +19,32 @@ app.set('view engine', 'ejs');
 
 // Middleware for serving static files
 SwaggerConfig(app);
-
-app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.static(path.join(__dirname, 'views')));
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.json());
-app.use(sessions({
-    secret:process.env.SECRESTKEYFORSEASION,
-    saveUninitialized:true,
-    cookie: { maxAge:Number( process.env.ONEDAY) },
-    resave: false
-    }));
-require('./src/config/atlas.js');
-app.use(cors());
-// Routes
-
-app.use(cookieParser());
-app.use(router);
-app.use(morgan("dev"));
-app.use(morgan("common"));
-NotFoundHandler(app);
-AllExceptionHandler(app);
-// Start server
-app.listen(PORT, () => {
-    console.log(`Server running on port : ${PORT}`);
-});
+function main(){
+   // require('./src/config/atlas.js');
+    require('./src/config/mongoose.config.js');
+    app.use(express.static(path.join(__dirname, 'public')));
+    app.use(express.static(path.join(__dirname, 'views')));
+    app.use(bodyParser.urlencoded({ extended: true }));
+    app.use(express.json());
+    app.use(sessions({
+        secret:process.env.SECRESTKEYFORSEASION,
+        saveUninitialized:true,
+        cookie: { maxAge:Number( process.env.ONEDAY) },
+        resave: false
+        }));
+    app.use(cors());
+    // Routes
+    
+    app.use(cookieParser());
+    app.use(router);
+    app.use(morgan("dev"));
+    app.use(morgan("common"));
+    NotFoundHandler(app);
+    AllExceptionHandler(app);
+    // Start server
+    app.listen(PORT, () => {
+        console.log(`Server running on port : ${PORT}`);
+    });
+    
+}
+main();
