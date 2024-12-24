@@ -4,10 +4,10 @@ const { CerRoutes } = require('./cer/cer.routes');
 const { MenuRouter } = require('./menu/menu.route');
 const router = express.Router();
 
-
-router.use("/auth",AuthRoutes)
-router.use("/cer",CerRoutes)
 router.use(MenuRouter)
+
+//router.use("/auth",AuthRoutes)
+router.use("/cer",CerRoutes)
 module.exports={
     router
 }

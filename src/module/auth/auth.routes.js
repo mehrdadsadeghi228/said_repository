@@ -1,7 +1,7 @@
 const express = require('express');
 const AuthRoutes = express.Router();
 const authController = require('./auth.controller');
-const { validateAuthRegisterschema,validateAuthLoginschema } = require('./authvalidate');
+const { validateAuthLoginschema } = require('./authvalidate');
 
 // Registration route
 AuthRoutes.post('/register', authController.register);

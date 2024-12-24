@@ -1,8 +1,6 @@
 
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const config = require('../../config/configJWT.js');
-const validateAuthschema = require('./authvalidate');
 var winston = require('winston');
 const User = require('./auth.model.js');
 const { validationResult } = require('express-validator');
@@ -38,7 +36,7 @@ class AuthController {
       const hashedPassword =  bcrypt.hashSync(password, salt);
 
       // Create new user
-      const newUser = new User({
+      const newUser = new User.create({
         username,
         email,
         password: hashedPassword
@@ -67,11 +65,11 @@ class AuthController {
       // Check if user exists
       const user = await User.findOne({ email });
       if (!user) {
-        return res.status(400).json({ message: 'Invalid credentials' });
+        return res.status(400).render('notexist');
       }
 
       // Check password
-      const isMatch = await bcrypt.compare(password, user.password);
+      const isMatch =  bcrypt.compareSync(password, user.password);
       if (!isMatch) {
         return res.status(400).json({ message: 'Invalid credentials' });
       }
