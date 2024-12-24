@@ -11,10 +11,7 @@ const cookieParser = require('cookie-parser');
 const { NotFoundHandler } = require('./src/utills/common/exception/not-found.handler');
 const { AllExceptionHandler } = require('./src/utills/common/exception/all-exception.handler');
 
-
 require("dotenv").config();
-
-
 const app = express();
 const PORT = process.env.PORT || 3000;
 // Set EJS as the template engine
