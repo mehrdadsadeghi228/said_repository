@@ -2,7 +2,7 @@ const { default: mongoose } = require("mongoose");
 require("dotenv").config();
 const tempText="Mongoose status is : "
 
-const url =process.env.MONGODB_URI_LOCAL
+const url = process.env.MONGODBURL;
 
 try {
     mongoose.connect(url);
